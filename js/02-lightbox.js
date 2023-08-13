@@ -1,6 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-const gallery = document.querySelector(".gallery");
+const galleryContainer = document.querySelector(".gallery");
 
 let galleryListArray = [];
 
@@ -12,7 +12,7 @@ galleryItems.forEach((galleryItem) => {
   listItem.insertAdjacentHTML("beforeend", innerString);
   galleryListArray.push(listItem);
 });
-gallery.append(...galleryListArray);
+galleryContainer.append(...galleryListArray);
 
 let lightbox = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
