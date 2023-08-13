@@ -37,7 +37,7 @@ function openModal(src) {
   instance.show();
 }
 
-// Obsługa kliknięcia w element galerii i otwarcie okna modalnego
+// Klikniecie w img galerii = otwarcie okna modalnego
 galleryContainer.addEventListener("click", (event) => {
   event.preventDefault();
   if (event.target.tagName === "IMG") {
@@ -46,7 +46,7 @@ galleryContainer.addEventListener("click", (event) => {
   }
 });
 
-// Obsługa zamknięcia okna modalnego po naciśnięciu klawisza Escape
+// Zamknięcia okna modalnego po naciśnięciu klawisza Escape
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     basicLightbox.close();
@@ -89,7 +89,7 @@ document.addEventListener("keydown", (event) => {
 //   instance.show();
 // }
 
-// // Obsługa kliknięcia w element galerii i otwarcie okna modalnego
+// // Kliknięcie w img galerii = otwarcie okna modalnego
 // galleryContainer.addEventListener("click", (event) => {
 //   event.preventDefault();
 //   if (event.target.tagName === "IMG") {
@@ -98,7 +98,7 @@ document.addEventListener("keydown", (event) => {
 //   }
 // });
 
-// // Obsługa zamknięcia okna modalnego po naciśnięciu klawisza Escape
+// // Zamknięcie okna modalnego po naciśnięciu klawisza Escape
 // window.addEventListener("keydown", (event) => {
 //   if (event.key === "Escape") {
 //     basicLightbox.close();
