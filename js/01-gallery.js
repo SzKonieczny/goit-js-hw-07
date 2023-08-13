@@ -47,7 +47,7 @@ galleryContainer.addEventListener("click", (event) => {
 });
 
 // Zamknięcia okna modalnego po naciśnięciu klawisza Escape
-document.addEventListener("keydown", (event) => {
+window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     basicLightbox.close();
   }
