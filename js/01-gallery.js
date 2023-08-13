@@ -104,4 +104,4 @@ document.addEventListener("keydown", (event) => {
 //     basicLightbox.close();
 //   }
 // });
-// console.log(galleryItems);
+console.log(galleryItems);
