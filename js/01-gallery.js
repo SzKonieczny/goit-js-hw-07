@@ -1,107 +1,49 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
-const galleryContainer = document.querySelector(".gallery");
+let galleryListArray = [];
 
-// Tworzenie i renderowanie znacznika na podstawie danych z galerii
-function createGalleryItem(item) {
-  const galleryItem = document.createElement("li");
-  galleryItem.classList.add("gallery__item");
+galleryItems.forEach((galleryItem) => {
+  const listItem = document.createElement("li");
+  listItem.classList.add("gallery__item");
+  const innerString = `<a class="gallery__link" href="${galleryItem.original}">
+<img
+  class="gallery__image"
+  src="${galleryItem.preview}"
+  data-source="${galleryItem.original}"
+  alt="${galleryItem.description}"
+/>
+</a>`;
+  listItem.insertAdjacentHTML("beforeend", innerString);
 
-  const galleryLink = document.createElement("a");
-  galleryLink.classList.add("gallery__link");
-  galleryLink.href = item.original;
-
-  const galleryImage = document.createElement("img");
-  galleryImage.classList.add("gallery__image");
-  galleryImage.src = item.preview;
-  galleryImage.alt = item.description;
-  galleryImage.setAttribute("data-source", item.original);
-
-  galleryLink.appendChild(galleryImage);
-  galleryItem.appendChild(galleryLink);
-
-  return galleryItem;
-}
-
-galleryItems.forEach((item) => {
-  galleryContainer.appendChild(createGalleryItem(item));
+  galleryListArray.push(listItem);
 });
 
-// Implementacja funkcji obsługującej otwarcie okna modalnego
-function openModal(src) {
-  const instance = basicLightbox.create(`
-    <img src="${src}" width="800" height="600">
-  `);
+gallery.append(...galleryListArray);
 
-  instance.show();
-}
-
-// Klikniecie w img galerii = otwarcie okna modalnego
-galleryContainer.addEventListener("click", (event) => {
+gallery.addEventListener("click", (event) => {
   event.preventDefault();
-  if (event.target.tagName === "IMG") {
-    const source = event.target.getAttribute("data-source");
-    openModal(source);
+  if (!event.target.dataset.source) {
+    return;
   }
+  const instance = basicLightbox.create(
+    `
+    <img src="${event.target.dataset.source}" width="800" height="600">
+`,
+    {
+      onShow: () => {
+        document.addEventListener("keydown", handler);
+      },
+      onClose: () => {
+        document.removeEventListener("keydown", handler);
+      },
+    }
+  );
+  const handler = (e) => {
+    if (e.key === "Escape") {
+      instance.close();
+    }
+  };
+  instance.show();
 });
-
-// Zamknięcia okna modalnego po naciśnięciu klawisza Escape
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    basicLightbox.close();
-  }
-});
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// const galleryContainer = document.querySelector(".gallery");
-
-// // Tworzenie i renderowanie znacznika na podstawie danych z galerii
-// function createGalleryItem(item) {
-//   const galleryItem = document.createElement("li");
-//   galleryItem.classList.add("gallery__item");
-
-//   const galleryLink = document.createElement("a");
-//   galleryLink.classList.add("gallery__link");
-//   galleryLink.href = item.original;
-
-//   const galleryImage = document.createElement("img");
-//   galleryImage.classList.add("gallery__image");
-//   galleryImage.src = item.preview;
-//   galleryImage.alt = item.description;
-//   galleryImage.setAttribute("data-source", item.original);
-
-//   galleryLink.appendChild(galleryImage);
-//   galleryItem.appendChild(galleryLink);
-
-//   return galleryItem;
-// }
-
-// galleryItems.forEach((item) => {
-//   galleryContainer.appendChild(createGalleryItem(item));
-// });
-
-// // Implementacja funkcji obsługującej otwarcie okna modalnego
-// function openModal(src) {
-//   const instance = basicLightbox.create(`
-//     <img src="${src}" width="800" height="600">
-//   `);
-
-//   instance.show();
-// }
-
-// // Kliknięcie w img galerii = otwarcie okna modalnego
-// galleryContainer.addEventListener("click", (event) => {
-//   event.preventDefault();
-//   if (event.target.tagName === "IMG") {
-//     const source = event.target.getAttribute("data-source");
-//     openModal(source);
-//   }
-// });
-
-// // Zamknięcie okna modalnego po naciśnięciu klawisza Escape
-// window.addEventListener("keydown", (event) => {
-//   if (event.key === "Escape") {
-//     basicLightbox.close();
-//   }
-// });
 console.log(galleryItems);
